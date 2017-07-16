@@ -30,6 +30,7 @@
   * Impossible de générer des ids
   * Lourdeur de l'écriture
   * Nécessite de gérer des évènements non nécessaires
+* Les media queries avec une souscription à la taille de la page
 
 
 
