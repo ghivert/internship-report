@@ -7,4 +7,5 @@
 * [IV. Du style sans CSS](iv-du-style-sans-css.md)
 * [V. Réécrire HTML](v-reecrire-html.md)
 * [VI. Résultats](vi-resultats.md)
+* [VII. Ouverture et Travail Futur](vii-ouverture-et-travail-futur.md)
 
