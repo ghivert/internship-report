@@ -9,4 +9,5 @@
 * [V. Réécrire HTML](v-reecrire-html.md)
 * [VI. Résultats](vi-resultats.md)
 * [VII. Ouverture et Travail Futur](vii-ouverture-et-travail-futur.md)
+* [Annexes](annexes.md)
 
