@@ -2,9 +2,12 @@
 
 ## Le typage d'HTML
 
-## Réincorporer le layout dans HTML
+* Répond au standard
+* Plus de problèmes de comportements
 
 ## HTML comme composante de base
+
+* HTML comme building blocks
 
 
 
