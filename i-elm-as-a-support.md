@@ -2,7 +2,19 @@
 
 ## Un langage fonctionnel pour le web
 
+* Inspiré de Haskell
+* Typage fort
+* Purement fonctionnel
+* Langage mainstream
+* Compile vers JavaScript
+* Intéropérable
+
 ## Une architecture pour le développement de SPA
+
+* The Elm Architecture
+* AJAX comme solution
+* HTML comme building blocks
+* CSS encore présent
 
 
 
