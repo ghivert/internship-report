@@ -12,6 +12,9 @@
 ## Une architecture pour le développement de SPA
 
 * The Elm Architecture
+  * Model
+  * Update
+  * View
 * AJAX comme solution
 * HTML comme building blocks
 * CSS encore présent
