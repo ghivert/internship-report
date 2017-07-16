@@ -1,10 +1,14 @@
-# Ouverture et Travail Futur
+# Conclusion et Travail Futur
 
-## Animation
+## Conclusion
 
-## Performances
+## Travail Futur
 
-## Meilleure distinction Structure/Style/Comportement
+### Animation
+
+### Performances
+
+### Meilleure distinction Structure/Style/Comportement
 
 
 
