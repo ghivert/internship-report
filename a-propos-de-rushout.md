@@ -4,5 +4,7 @@
 * Marketplace
 * Agenda intelligent
 
+Thibaut Assus CTO
 
+Jean-Baptiste Huguenin CEO
 
