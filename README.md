@@ -1,6 +1,4 @@
-# Single Page Applications Without HTML, CSS and JavaScript
+# Single Page Applications sans HTML, CSS et JavaScript
 
-
-
-
+Le développement d'applications riches sur Internet se dirige aujourd'hui vers des applications à page uniques. Celles-ci se distinguent des applications web plus traditionnelles par leur fonctionnement. Le modèle classique des applications web consiste à charger une page web \(HTML et CSS\) depuis un serveur, à afficher la page, puis à ajouter un peu d'animations à l'aide de JavaScript pour obtenir une page plus interactive. Pour obtenir une application dynamique, il est également possible de générer la page HTML en fonction de la demande de l'utilisateur, et d'obtenir une réponse personnalisée, du côté serveur. On retrouve de nombreux langages et frameworks se basant sur ce principe : PHP, Ruby on Rails, Django \(en Python\), etc. Les applications modernes profitent pour leur part du perfectionnement des machines virtuelles JavaScript dans les navigateurs. Contrairement aux applications web plus traditionnelles, les applications web modernes visent à ne plus déclencher de rechargement de page dans le navigateur de l'utilisateur, et utilisent pour cela JavaScript pour modifier le modèle de la page \(le DOM ou Document Object Model\) afin d'obtenir le même résultat qu'un changement de page, sans ressentir le ralentissement inhérent au protocole HTTP lors d'un chargement complet de page.
 
