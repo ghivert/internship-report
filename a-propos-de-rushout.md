@@ -8,5 +8,5 @@ Toutefois, pour arriver à ce stade, une phase de recherche et développement pr
 
 
 
-
+Rushout compte actuellement 2 employés, et est domicilié à …
 
