@@ -1,6 +1,10 @@
 # Spécificités des langages web et historique
 
+La création d'un site web ou d'une webapp passe forcément par l'utilisation des trois langages historiques du web : HTML, CSS et JavaScript. 
+
 ## HTML
+
+HTML, ou HyperText Markup Language, a été créé en 1989. Le langage HTML a pour but de décrire la structure d'une page web. Le HTML se présente comme un arbre décrivant l'intégralité des noeuds sur une page, chaque noeud représentant un élément de l'interface.
 
 * Désigné en 1989
 * Censé s'occuper de la structure de la page
@@ -22,7 +26,7 @@
   * Pas de message d'erreur
 * Comportement imprévisible
 * Nombreuses évolutions peu compatibles entre elles
-* Absence de fonctionnalités importantes :
+* Absence de fonctionnalités importantes :
   * Namespace
   * Variables
 
