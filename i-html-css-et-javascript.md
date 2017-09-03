@@ -12,7 +12,7 @@ HTML a par contre des particularités pouvant être handicapants dans certains c
 
 Enfin, HTML est par nature statique : il est impossible de le modifier à l'exécution sans passer par JavaScript. Cela pose des problèmes compliqués pour gérer de multiples pages HTML : il fallait forcément recharger la page avec un nouveau code HTML pour obtenir un affichage différent — gérer le DOM en JavaScript étant très compliqué à effectuer à cause des nombreux effets de bord induits.
 
-CSS
+## CSS
 
 * Désigné au milieu des années 90
 * Censé s'occuper du style
