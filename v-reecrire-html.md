@@ -1,6 +1,6 @@
 # Réécrire HTML
 
-Dans cette volonté de réécrire et redesigner les différents besoins du web, la reflexion autour de HTML nous a permis de mettre à jour différents besoins dans un package HTML au sein de Elm.
+Dans cette volonté de réécrire et redesigner les différents besoins du web, la reflexion autour de HTML nous a permis de mettre à jour différents besoins dans un package HTML au sein de Elm : il s'agit dans un premier temps de lier dans un package « bas-niveau » les différents besoins pour ensuite pouvoir les séparer de nouveau proprement.
 
 ## Le typage d'HTML
 
@@ -18,11 +18,65 @@ Cela garanti également de ne plus avoir de problèmes de comportement, puisque 
 
 ## HTML et CSS comme composantes de base
 
-* HTML comme building blocks
-* Incorporer CSS
-* Générer des classes atomiques
-* Lier les styles aux éléments
-* Modification du DOM au besoin
+### Extraire le Style de la structure
 
+Une fois le typage des différents éléments obtenus, nous avons du intégrer le style inline dans chaque élément défini. Pour cela, nous devions réfléchir à la meilleure manière d'intégrer CSS dans les éléments tout en conservant l'inline styling. Cela est rendu possible grâce à un parcours du Virtual DOM généré par Elm lors de chaque rendu pour en extraire le style, et l'isoler du reste de la structure. On obtient donc ainsi une séparation entre le HTML et le CSS. Un élément se définit donc par sa balise, ainsi que son style :
 
+```elm
+button =
+  NewHtml.button
+    [ Elegant.style
+      [ Elegant.textColor Color.red ]
+    ]
+    [ NewHtml.text "label" ]
+```
+
+Ce style, définit à l'aide de la librairie Elegant est donc la même structure de données que précédemment. 
+
+Dans sa version classique, chaque fonction HTML de Elm écrit directement dans le Virtual DOM sans se soucier de ses enfants, rendant impossible le parcours de l'arbre en Elm. Il nous a donc fallu passer par une structure intermédiaire : une structure d'arbre stockant les enfants. Ce faisant, nous pouvons récupérer les styles de chaque élément. Un parcours d'arbre permet alors de séparer style et structure comme indiqué :
+
+```elm
+type Html msg
+  = Html
+    { structure :
+      { tag : String
+      , attributes : List (Attribute msg)
+      , content : List (Html msg)
+      }
+    , styles : List (Style -> Style)
+    }
+
+type alias StyledNode msg =
+  { css : List (Style -> Style)
+  , html : VirtualDom.Node msg
+  }
+
+getHtmlAndStyles : Html msg -> List (StyledNode msg) -> List (StyledNode msg)
+getHtmlAndStyles html acc =
+  extractCssAndHtml html :: acc
+  
+extractCssAndHtml : Html msg -> StyledNode msg
+extractCSSAndHtml (Html html) =
+  let children = List.foldr getHtmlAndStyles [] html.structure.content in
+    { html =
+      VirtualDom.node html.structure.tag
+        (List.append
+          (List.map Css.styleToClassName html.styles)
+          html.structure.attributes)
+        (List.map .html children)
+    , css =
+      List.append html.styles <|
+        List.concatMap .css children
+    }
+```
+
+Comme il est possible de le voir dans ce code, un parcours de l'arbre extrait le HTML, mais va en même temps compiler chaque composante du style en un nom de classe unique pour chaque nœud. Cela permet dans un second temps de générer des classes CSS atomiques.
+
+### Générer le CSS correspondant au Style
+
+Chaque style extrait est en réalité un assemblage de composantes variées : display, position, border, opacity, color, background-color, etc. Chacune de ces composantes peut se retrouver dans plusieurs éléments différents dans le DOM, et il est important de ne pas répéter des dizaines de fois la même classe CSS dans le code généré. Grâce à l'extraction de l'intégralité des styles des éléments, cela permet de s'assurer, pour chaque composante, que celle-ci n'a pas déjà été compilée. Cela permet alors de générer des classes atomiques, ne contenant qu'une instruction chacune. Chaque classe est unique, et partagée par tous les éléments en ayant besoin.
+
+Ces classes étant déjà liés aux éléments de HTML, puisque ceux-ci ont été compilés auparavant, il est possible de générer ensuite tous les styles dans un nœud `<style>` directement au sein de la page, et de le placer comme premier nœud dans le Virtual DOM. En cas de modification des styles de la page, le Virtual DOM prend en charge le changement de CSS dans le nœud style, et le répercute dans le navigateur.
+
+En procédant ainsi — en compilant du HTML — il est possible de profiter de toute la puissance et toute la flexibilité de CSS, sans ses défauts : il est possible d'utiliser les pseudo-sélecteurs, les media queries, et cela évite les différents problèmes de namespace et de redondance. Tout cela est pris en charge directement par l'algorithme, qui se charge d'éliminer les doublons.
 
