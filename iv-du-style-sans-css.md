@@ -67,16 +67,39 @@ Malheureusement, bien que l'inlining de styles et la transformation du style en 
 
 ### Le hover et les pseudo classes
 
-* Comportement
-* Impossible avec l'inline styling
-* Nécessite des classes
+Le comportement le plus évident utilisé en CSS et impossible à utiliser en inline styling est le hover, ou le comportement au survol — et par extension tous les pseudo-sélecteur et pseudo-classes. Pare exemple, le hover est défini en CSS avec le pseudo-sélecteur `:hover` :
 
-### Les media query
+```css
+.red-hover:hover {
+  color: red;
+}
+```
 
-* Nécessite des classes
-* Change la structure de la page
-* Réagit selon la taille de la page
-* Ne déclenche pas d'évènement
+Cette pseudo-sélection agit sur des éléments qui n'ont pas d'identifiant précis dans le DOM : par exemple, les éléments hover n'ont de sens que lorsqu'un élément est survolé avec la souris de l'utilisateur. Il est donc impossible d'utiliser l'inline styling avec ces éléments, puisqu'ils n'existent que sous condition. De la même manière, les sélecteurs `::before`, `::after`, ou `:active` n'ont en réalité pas beaucoup de sens lorsque l'on envisage CSS comme un outil de styles. Effectivement, ces pseudo-classes et sélecteurs ont en réalité un impact sur la structure de la page, ou bien sur la logique elle-même de la page : le survol d'un élément est un évènement, au même titre qu'un clic. Le changement de design de l'élément au survol devrait donc être géré par la logique applicative — et donc par Elm.
+
+Il est ainsi facile de conceptualiser comment intégrer les ::before et ::after. Puisque Elm génère du HTML \(tout comme ces sélecteurs\), il « suffit » de générer du HTML supplémentaires, avec du style inline. Le problème du hover et du active est par contre plus compliqué : ces évènements ont lieu, mais la majeure partie du temps, l'utilisateur ne souhaite pas avoir à réimplémenter de comportement lors de l'utilisation d'un hover.
+
+### Les media queries
+
+Le deuxième comportement CSS impossible à retranscrire en inline styling est les media queries. Les media queries sont des sélecteurs CSS permettant d'adapter le CSS et de le changer dynamiquement à l'exécution selon la taille de l'écran de l'utilisateur du site. Pour qu'un site soit _Responsive_, il se doit d'utiliser des media queries pour pouvoir se réajuster à n'importe quel écran, de l'ordinateur au smartphone. Les media queries requièrent des classes pour être utilisées correctement, puisqu'elles « englobent » la définition de classe dans le CSS :
+
+```css
+@media (max-width: 400px) {
+  .red-text {
+    color: red;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 700px) {
+  .red-text {
+    color: blue;
+  }
+}
+```
+
+Ces deux précédents exemples illustrent le changement de couleur de texte de tous les éléments `red-text` lorsque la taille de l'écran change. Lorsque l'écran est de 0 à 400px, le texte est rouge, et jusqu'à 700px, il apparait bleu. Les classes changent littéralement de contenu, et aucun évènement n'est émis. Il s'agit d'une modification importante et pourtant silencieuse, impossible à retranscrire facilement, et impossible à retranscrire en Elm, du fait de l'absence d'évènements.
+
+Des essais ont donc été effectués pour résoudre ces problèmes.
 
 ### Les essais infructeux
 
