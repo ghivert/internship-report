@@ -51,9 +51,15 @@ update msg model =
 view : Model -> Html Msg
 view model =
   div []
-    [ button [ onClick Decrement ] [ text "-" ]
-    , div [] [ text (toString model) ]
-    , button [ onClick Increment ] [ text "+" ]
+    [ button 
+      [ onClick Decrement ] 
+      [ text "-" ]
+    , div 
+      [] 
+      [ text (toString model) ]
+    , button 
+      [ onClick Increment ] 
+      [ text "+" ]
     ]
 ```
 
@@ -66,6 +72,4 @@ En interceptant également l'URL du navigateur de l'utilisateur, il devient éga
 Cela permet de définir une architecture fonctionnelle pure, tout en communiquant avec l'extérieur. Par ailleurs, on peut observer que le flux de données devient uni-directionnel \(one-way data-flow\). Il devient impossible d'avoir à faire à des effets de bords inattendus. Effectivement, chaque effet de bord passe obligatoirement par la fonction d'update, et est géré directement par le runtime. De plus, comme cela génère un nouvel état de l'application, il est possible d'explorer les états de l'application dans le temps en stockant ces états au fil du temps avec leur message.
 
 Cette architecture permet de résoudre les problèmes posés par HTML : Elm se charge de la génération de HTML à l'aide des fonctions de génération \(ce qui évite d'avoir à gérer la structure de HTML, qui n'est pas toujours fiable\). Par ailleurs, la logique liée à l'interface est également directement gérée en Elm, sans besoin d'effectuer de modifications de DOM manuellement. Cela permet donc déjà, dans un premier temps, de s'affranchir de HTML et JavaScript. En revanche, CSS reste toujours indispensable pour structurer le frontend, et le styliser.
-
-
 
