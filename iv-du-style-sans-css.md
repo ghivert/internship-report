@@ -49,7 +49,7 @@ baseStyle primaryColor secondColor =
 
 Que l'on peut alors réutiliser et composer de la même manière :
 
-```
+```elm
 example : Color -> Color -> Maybe Color -> (Style -> Style) -> Html msg
 example primary second third otherStyleModifier =
   Html.p
