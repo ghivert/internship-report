@@ -1,6 +1,6 @@
 # Du style sans CSS
 
-Elm apporte une réponse convaincante pour se passer de HTML et JavaScript, toutefois CSS reste obligatoire, malgré l'architecture Elm. Pour résoudre les problèmes subsitant dans le web, il faut donc supprimer également CSS.
+Elm apporte une réponse convaincante pour se passer de HTML et JavaScript, toutefois CSS reste obligatoire, malgré l'architecture Elm. Pour résoudre les problèmes subsitant dans le web, il faut donc supprimer également CSS.
 
 ## HTML inline styling
 
@@ -10,9 +10,11 @@ Avec les mouvements récents dans le monde CSS, l'état de l'art actuel consiste
 
 ### Son implémentation en Elm
 
-Pour implémenter directement l'inline styling, une bibliothèque a été écrite : [Elegant](https://github.com/elm-bodybuilder/elegant). Cette bibliothèque tente de résoudre le problème d'inline styling en permettant d'écrire chaque style pour chaque élément de manière fonctionnelle : le style devient une suite de fonctions de premier niveau, composable entre elles. Cela permet de traiter le style non plus comme une donnée statique, mais fonctionnelle, et réutilisable simplement.
+Pour implémenter directement l'inline styling, une bibliothèque a été écrite : [Elegant](https://github.com/elm-bodybuilder/elegant). Cette bibliothèque tente de résoudre le problème d'inline styling en permettant d'écrire chaque style pour chaque élément de manière fonctionnelle : le style devient une donnée de la structure, modifiée par une suite de fonctions générant un nouveau style. Ces fonctions sont de plus composables entre elles. Cela permet de traiter le style non plus comme une donnée statique, mais fonctionnelle, et réutilisable simplement.
 
-```
+Un exemple simple de style inline s'écrit ainsi :
+
+```elm
 button otherStyle =
   Html.button
     [ Elegant.style
@@ -21,11 +23,19 @@ button otherStyle =
       , otherStyle
       ]
     ]
-    [ -- Html in there 
+    [ Html.text "Button label"
     ]
 ```
 
+Dans cette exemple, le HTML sous-jacent sera compilé sous la forme :
 
+```html
+<button style="display: block; color: rgb(255, 255, 255);">
+  "Button label"
+</button>
+```
+
+La fonction `Elegant.style` prend en paramètre une liste de fonctions modifiant le style. `Elegant.style` se type : `List (Style -> Style)`. \(La structure de données de `Style`, trop longue est fournie en annexe.\) Cela illustre bien cette nouvelle manière de considérer le style : il ne s'agit plus de données statiques fixées au lancement du programme, mais d'une structure de données pouvant se modifier au fur et à mesure de l'exécution du programme. Un style n'est donc plus unique, mais peut évoluer durant l'exécution d'un programme. Chaque fonction de la liste de modificateurs modifie alors ce style, qui sera ensuite compilé en une chaîne de caractères pouvant être utilisé directement dans les nœuds HTML.
 
 ## Les problèmes insolubles
 
