@@ -15,12 +15,13 @@ Pour implémenter directement l'inline styling, une bibliothèque a été écrit
 Un exemple simple de style inline s'écrit ainsi :
 
 ```elm
-button otherStyle =
+button : (Style -> Style) -> Html msg
+button otherStyleModifier =
   Html.button
     [ Elegant.style
       [ Elegant.displayBlock
-      , Elegant.color (Color.rgb 255 255 255) 
-      , otherStyle
+      , Elegant.textColor (Color.rgb 255 255 255) 
+      , otherStyleModifier
       ]
     ]
     [ Html.text "Button label"
@@ -35,7 +36,32 @@ Dans cette exemple, le HTML sous-jacent sera compilé sous la forme :
 </button>
 ```
 
-La fonction `Elegant.style` prend en paramètre une liste de fonctions modifiant le style. `Elegant.style` se type : `List (Style -> Style)`. \(La structure de données de `Style`, trop longue est fournie en annexe.\) Cela illustre bien cette nouvelle manière de considérer le style : il ne s'agit plus de données statiques fixées au lancement du programme, mais d'une structure de données pouvant se modifier au fur et à mesure de l'exécution du programme. Un style n'est donc plus unique, mais peut évoluer durant l'exécution d'un programme. Chaque fonction de la liste de modificateurs modifie alors ce style, qui sera ensuite compilé en une chaîne de caractères pouvant être utilisé directement dans les nœuds HTML.
+La fonction `Elegant.style` prend en paramètre une liste de fonctions modifiant le style. `Elegant.style` se type : `List (Style -> Style)`. Cela illustre bien cette nouvelle manière de considérer le style : il ne s'agit plus de données statiques fixées au lancement du programme, mais d'une structure de données pouvant se modifier au fur et à mesure de l'exécution du programme. Un style n'est donc plus unique, mais peut évoluer durant l'exécution d'un programme. Chaque fonction de la liste de modificateurs modifie alors ce style, qui sera ensuite compilé en une chaîne de caractères pouvant être utilisé directement dans les nœuds HTML.
+
+Il est donc alors possible de définir des styles personnalisés. Puisqu'il s'agit de fonctions, celles-ci peuvent se composer et prendre des paramètres différents. Par exemple, il est possible de définir un style de base pour tous les éléments, qu'il est possible de réutiliser facilement :
+
+```elm
+baseStyle : Color -> Color -> (Style -> Style)
+baseStyle primaryColor secondColor =
+  Elegant.backgroundColor primaryColor 
+    >> Elegant.textColor secondColor
+```
+
+Que l'on peut alors réutiliser et composer de la même manière :
+
+```
+example : Color -> Color -> Maybe Color -> (Style -> Style) -> Html msg
+example primary second third otherStyleModifier =
+  Html.p
+    [ Elegant.style 
+      [ (baseStyle primary second) >> backgroundColor (Maybe.withDefault primary third)
+      ,  otherStyleModifier
+      ]
+    ]
+    [ Html.text "Example" ]
+```
+
+Malheureusement, bien que l'inlining de styles et la transformation du style en valeur fonctionnelle permettent de résoudre beaucoup de problèmes de CSS, cela ne permet pas de retrouver l'intégralité des fonctionnalités de CSS.
 
 ## Les problèmes insolubles
 
