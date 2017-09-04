@@ -16,7 +16,7 @@ En utilisant le typage, et en forçant l'usage de fonctions n'acceptant pas ces 
 
 Cela garanti également de ne plus avoir de problèmes de comportement, puisque les comportements impossible \(mettre un lien dans un lien par exemple\) sont interdits.
 
-## HTML et CSS comme composante de base
+## HTML et CSS comme composantes de base
 
 * HTML comme building blocks
 * Incorporer CSS
