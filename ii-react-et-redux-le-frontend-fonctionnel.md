@@ -1,5 +1,7 @@
 # React & Redux, le frontend fonctionnel
 
+
+
 ## React, la stratégie du Virtual DOM
 
 * Virtual DOM
