@@ -28,11 +28,15 @@ Des initiatives comme [SASS](http://sass-lang.com/) \(pour Super Awesome StyleSh
 
 ## JavaScript
 
-* Désigné en 1995
-* Implémentations différentes selon le navigateur
-  * Comportement non fiable
-* Pas de message d'erreur
-* Problème de portée lexicale
+Le dernier des langages web, JavaScript a été inventé en 1995 par Brendan Eich pour le navigateur NetScape. Ce langage de script au typage faible est fortement orienté pour interagir parfaitement avec le DOM et les différentes technologies du web, notamment HTML et CSS.
+
+JavaScript est un langage bâti sur le standard ECMA, l'ECMAScript. Le langage s'est vu standardisé tardivement, lorsque chaque navigateur implémentait sa propre variante de JavaScript pour pouvoir interagir avec les pages web, et permettre des animations sur ces mêmes pages. Cela a pendant longtemps entrainé le fait d'un comportement non fiable à travers les différents navigateurs, et force les développeurs à écrire le même code sous différentes formes pour respecter chacun des navigateurs et qu'un même code s'exécute de manière identique sur chaque navigateur ; ou à utiliser des bibliothèques prenant cela en charge pour eux, comme [jQuery](https://jquery.com/).
+
+JavaScript possède aujourd'hui un environnement de développement très riche et est mis à jour régulièrement, mais possède encore aujourd'hui quelques faiblesses, notamment dans le support des nouvelles versions au sein des navigateurs, ce qui ne résout pas encore le problème historique de portée lexicale de JavaScript : JavaScript n'implémentant pas le concept de portée lexicale comme le fait aujourd'hui la quasi-totalité des langages de programmation. De plus, son absence de typage et de messages d'erreur en font un langage compliqué à maintenir, ce qui pousse de nombreuses personnes à utiliser des langages compilant vers JavaScript. Il est possible de citer dans cette catégorie PureScript, Elm, ClojureScript ou encore Dart et TypeScript. Mais de nombreuses initiatives tentent également d'améliorer JavaScript. On peut penser pour cela à Flow, le typeur de JavaScript par Facebook.
+
+On peut observer une forte volonté aujourd'hui de se séparer de JavaScript dans le navigateur, notamment avec l'arrivée des langages de programmation fonctionnels compilant vers JavaScript.
+
+
 
 
 
