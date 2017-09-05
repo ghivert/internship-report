@@ -1,6 +1,6 @@
 # Elm en tant que support
 
-React et Redux permettent d'obtenir une première version d'un frontend répondant au critère de jolité du code aujourd'hui. Toutefois, cela ne permet pas de se passer de JavaScript intégralement, bien que cela permet déjà de résoudre les problèmes inhérents à HTML. Pour résoudre les problèmes liés à JavaScript, il est nécessaire de changer de langage. Or, Redux est fortement inspiré de Elm, un langage de programmation fonctionnel permettant l'écriture de webapp riche en navigateur.
+React et Redux permettent d'obtenir une première version d'un frontend permettant d'écrire une webapp réactive sans rechargement de page, et sans avoir à gérer manuellement le DOM. Toutefois, cela ne permet pas de se passer de JavaScript intégralement. Pour résoudre les problèmes liés à JavaScript, il est nécessaire de changer de langage. Or, Redux est fortement inspiré de Elm, un langage de programmation fonctionnel permettant l'écriture de webapp riche en navigateur.
 
 ## Un langage fonctionnel pour le web
 
